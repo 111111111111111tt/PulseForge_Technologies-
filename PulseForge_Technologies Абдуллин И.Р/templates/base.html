@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PulseForge Technologies — учебный проект IT-компании.">
+  <title>{% block title %}PulseForge Technologies{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="container nav-wrap">
+    <a class="brand" href="{{ url_for('index') }}" aria-label="PulseForge Technologies — главная">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span class="brand-name">PULSEFORGE<small>TECHNOLOGIES</small></span>
+    </a>
+    <nav class="main-nav">
+      <a href="{{ url_for('index') }}">Главная</a>
+      <a href="{{ url_for('about') }}">О компании</a>
+      <a href="{{ url_for('contact') }}">Контакты</a>
+    </nav>
+    <a class="nav-cta" href="{{ url_for('contact') }}">Обсудить проект <span>↗</span></a>
+  </div>
+</header>
+
+<main class="container main-content">
+  {% with notices = get_flashed_messages(with_categories=true) %}
+    {% if notices %}
+      {% for category, notice in notices %}
+        <div class="notice {{ category }}" role="status">{{ notice }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+  {% block content %}{% endblock %}
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <a class="brand footer-brand" href="{{ url_for('index') }}">
+      <span class="brand-mark"><span></span><span></span><span></span></span>
+      <span class="brand-name">PULSEFORGE<small>TECHNOLOGIES</small></span>
+    </a>
+    <p>Учебный проект · Python / Flask / SQLite</p>
+    <span>© 2026 PulseForge Technologies</span>
+  </div>
+</footer>
+</body>
+</html>

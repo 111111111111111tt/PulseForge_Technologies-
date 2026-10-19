@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block title %}Обращения — PulseForge Technologies{% endblock %}
+{% block content %}
+<section class="page-hero compact">
+  <p class="eyebrow">DATABASE VIEW / DEMO</p>
+  <h1>Входящие <span>обращения.</span></h1>
+  <p class="hero-description">Демонстрация записей, сохранённых в базе данных SQLite через форму обратной связи.</p>
+</section>
+<div class="admin-warning"><strong>Учебная страница</strong><span>Не публикуйте этот маршрут в интернете без авторизации.</span></div>
+{% if messages %}
+  <div class="inbox-head"><span>ВСЕГО СООБЩЕНИЙ</span><strong>{{ messages|length }}</strong></div>
+  <div class="inbox-list">
+  {% for item in messages %}
+    <article class="inbox-card">
+      <div class="inbox-card-top"><div class="avatar">{{ item.name[:1]|upper }}</div><div class="sender"><strong>{{ item.name }}</strong><span>{{ item.email }}</span></div><time>{{ item.created_at }}</time></div>
+      <p>{{ item.message }}</p>
+    </article>
+  {% endfor %}
+  </div>
+{% else %}
+  <div class="empty-state"><div class="empty-icon">↗</div><h2>Пока нет обращений</h2><p>Перейдите в раздел «Контакты» и отправьте тестовое сообщение. Оно появится здесь после сохранения в SQLite.</p><a class="button button-primary" href="{{ url_for('contact') }}">Открыть форму</a></div>
+{% endif %}
+{% endblock %}
